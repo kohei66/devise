@@ -3,9 +3,9 @@
   <h1 class="h2">Distributor List</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group mr-2">
-      <button class="btn btn-sm btn-outline-secondary"><%= link_to '承認済み', blogs_path(status:1) %></button>
-      <button class="btn btn-sm btn-outline-secondary"><%= link_to ' 保留中 ', blogs_path(status:2) %></button>
-      <button class="btn btn-sm btn-outline-secondary"><%= link_to ' 否決済み', blogs_path(status:3) %></button>
+      <button class="btn btn-sm btn-outline-secondary"><%= link_to '承認済み', blogs_path(status:2) %></button>
+      <button class="btn btn-sm btn-outline-secondary"><%= link_to ' 保留中 ', blogs_path(status:0) %></button>
+      <button class="btn btn-sm btn-outline-secondary"><%= link_to ' 否決済み', blogs_path(status:1) %></button>
       <button class="btn btn-sm btn-outline-secondary"><%= link_to ' 全て', blogs_path %></button>
       <button class="btn btn-sm btn-outline-secondary"><%= link_to ' Export xlsx' %></button>
     </div>
@@ -24,6 +24,11 @@
 
 <br>
 
+<% if current_user.try(:admin?) %>
+  <h1>Blogs_adminとしてログイン中です</h1>
+<% else %>
+  <h1>アドミンではありません</h1>
+<% end %>
 
 
 <main>
@@ -45,8 +50,9 @@
             <td><%= blog.content %></td>
             <td><%= blog.status %></td>
             <td><%= link_to 'Show', blog %></td>
-            <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-            <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            # Unapprovedか、on_holdの場合は場合分けででりーともしくは編集できるようにする
+            <!-- <td><%= link_to 'Edit', edit_blog_path(blog) %></td> -->
+            <!-- <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
           </tr>
         <% end %>
       </tbody>
