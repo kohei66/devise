@@ -21,6 +21,11 @@
     <%= form.text_area :content, id: :blog_content %>
   </div>
 
+  <div class="blog_title">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :blog_status %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
