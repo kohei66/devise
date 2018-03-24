@@ -29,11 +29,12 @@ class BlogsController < ApplicationController
   # POST /blogs
   # POST /blogs.json
   def create
-    @blog = Blog.new(blog_params)
-
+    @blog = current_user.blogs.new(blog_params)
     respond_to do |format|
-      if @blog.save
-        format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
+      if @blog.save!
+        NotificationMailer.notification_mail(@blog).deliver
+        ContactMailer.contact_mail(@blog).deliver
+        format.html { redirect_to @blog, notice: '申請の受付が完了いたしました。' }
         format.json { render :show, status: :created, location: @blog }
       else
         format.html { render :new }
@@ -47,7 +48,7 @@ class BlogsController < ApplicationController
   def update
     respond_to do |format|
       if @blog.update(blog_params)
-        format.html { redirect_to @blog, notice: 'Blog was successfully updated.' }
+        format.html { redirect_to @blog, notice: '申請の修正が完了いたしました' }
         format.json { render :show, status: :ok, location: @blog }
       else
         format.html { render :edit }
@@ -61,9 +62,15 @@ class BlogsController < ApplicationController
   def destroy
     @blog.destroy
     respond_to do |format|
-      format.html { redirect_to blogs_url, notice: 'Blog was successfully destroyed.' }
+      format.html { redirect_to blogs_url, notice: '申請の取り消しが完了いたしました。' }
       format.json { head :no_content }
     end
+  end
+
+  def export_xlsx
+    Blog.export_xlsx()
+    send_file("#{Rails.root}/tmp/distributor.xlsx")
+    redirect_to blogs_url, notice: 'excelのダウンロードが完了いたしました。'
   end
 
   private
