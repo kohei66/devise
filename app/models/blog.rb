@@ -13,7 +13,7 @@ class Blog < ApplicationRecord
 worksheet = workbook[0]
 
 # contents = Blog.all
-
+blog = Blog.all
 # Contents.
 contents = [
     ['column_A', 'column_B', 'column_C'],
