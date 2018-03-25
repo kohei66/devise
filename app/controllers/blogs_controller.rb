@@ -67,12 +67,19 @@ class BlogsController < ApplicationController
     end
   end
 
-  def export_xlsx
+  def download_xlsx
     Blog.export_xlsx()
-    send_file("#{Rails.root}/tmp/distributor.xlsx")
-    redirect_to blogs_url, notice: 'excelのダウンロードが完了いたしました。'
+    file_name="distributor.xlsx"
+    filepath = "#{Rails.root}/tmp/distributor.xlsx"
+    stat = File::stat(filepath)
+    send_file(filepath, :filename => file_name, :length => stat.size)
+  end
+
+  def send_xlsx
+    Blog.export_xlsx()
     @blog = current_user
     ExcelMailer.excel_mail(@blog).deliver
+    redirect_to blogs_url, notice: 'excelをメールで送信いたしました'
   end
 
   private
