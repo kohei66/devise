@@ -12,12 +12,15 @@ class Blog < ApplicationRecord
     workbook = RubyXL::Workbook.new
 worksheet = workbook[0]
 
+# contents = Blog.all
+
 # Contents.
 contents = [
     ['column_A', 'column_B', 'column_C'],
     [100, 200, 300],
     ['value_a', 'too long string', 'long long string over than default column width'],
 ]
+
 
 column_width = [0, 0, 0]
 
