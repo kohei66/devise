@@ -79,7 +79,8 @@ class BlogsController < ApplicationController
     Blog.export_xlsx()
     @blog = current_user
     ExcelMailer.excel_mail(@blog).deliver
-    redirect_to blogs_url, notice: 'excelをメールで送信いたしました'
+    redirect_to blogs_url, notice: 'xlsxファイルをメールで送信いたしました'
+    File.delete("#{Rails.root}/tmp/distributor.xlsx")
   end
 
   private
