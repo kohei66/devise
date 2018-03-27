@@ -1,4 +1,8 @@
 class Blog < ApplicationRecord
+  mount_uploader :file, FileUploader
+
+
+
   require 'rubyXL'
 
   enum status: { 承認待ち: 0, 否決済み: 1, 承認済み: 2 }
@@ -48,6 +52,7 @@ def self.export_xlsx
     worksheet.change_column_width(columnu_number, 20)
     columnu_number += 1
   end
+
 
   # Column width.
   # column_width.each.with_index { |width, column|

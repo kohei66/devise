@@ -1,0 +1,23 @@
+<%= form_with(model: myfile, local: true) do |form| %>
+  <% if myfile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(myfile.errors.count, "error") %> prohibited this myfile from being saved:</h2>
+
+      <ul>
+      <% myfile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :filename %>
+    <%= form.file_field :file, id: :myfile_filename %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

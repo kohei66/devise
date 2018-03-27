@@ -9,6 +9,7 @@
       <button class="col-xs-2 btn btn-sm btn-outline-secondary"><%= link_to ' 全て', blogs_path %></button>
       <button class="col-xs-2 btn btn-sm btn-outline-secondary"><%= link_to ' Download xlsx via e-mail',send_xlsx_blogs_path %></button>
       <button class="col-xs-2 btn btn-sm btn-outline-secondary"><%= link_to "Download xlsx",{:controller => "blogs",:action=>"download_xlsx"} %></button>
+      <button class="col-xs-2 btn btn-sm btn-outline-secondary"><%= link_to ' 一括登録用xlsx Upload',new_myfile_path %></button>
 
     </div>
     <!-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
