@@ -1,8 +1,4 @@
 class Blog < ApplicationRecord
-  mount_uploader :file, FileUploader
-
-
-
   require 'rubyXL'
 
   enum status: { 承認待ち: 0, 否決済み: 1, 承認済み: 2 }

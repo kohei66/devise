@@ -80,13 +80,15 @@ class MyfilesController < ApplicationController
     filepath = Myfile.find(id).filename
     xlsx = Roo::Excelx.new("#{Rails.root}/public/#{filepath}")
     header = xlsx.sheet(0).row(1)
-    # Myfile.bulk_upload_xlsx
+
     xlsx.sheet(0).each_with_index do |row,i|
       next if i == 0
       header_row_pairs = [header.collect(&:to_sym), row].transpose
       h = Hash[*header_row_pairs.flatten]
+      h.delete(:id)
       Blog.create(h)
       end
+
     redirect_to blogs_path, notice: "一括アップロード実施いたしました"
   end
 
