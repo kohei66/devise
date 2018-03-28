@@ -76,7 +76,17 @@ class MyfilesController < ApplicationController
   end
 
   def bulk_upload
-    Myfile.bulk_upload_xlsx
+    id = params[:excel_id].to_i
+    filepath = Myfile.find(id).filename
+    xlsx = Roo::Excelx.new("#{Rails.root}/public/#{filepath}")
+    header = xlsx.sheet(0).row(1)
+    # Myfile.bulk_upload_xlsx
+    xlsx.sheet(0).each_with_index do |row,i|
+      next if i == 0
+      header_row_pairs = [header.collect(&:to_sym), row].transpose
+      h = Hash[*header_row_pairs.flatten]
+      Blog.create(h)
+      end
     redirect_to blogs_path, notice: "一括アップロード実施いたしました"
   end
 
@@ -91,7 +101,7 @@ class MyfilesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def myfile_params
-    params.require(:myfile).permit(:file)
+    params.require(:myfile).permit(:file,:excel_id)
   end
 
   def uploadxlsx(file_object, file_name)
