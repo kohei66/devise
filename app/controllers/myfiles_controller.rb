@@ -112,13 +112,15 @@ class MyfilesController < ApplicationController
     elsif file_object.size > 10.megabyte
       result = 'ファイルサイズは10MBまでです。'
     else
-      File.open("public/#{file_name.toutf8}", 'wb') { |f| f.write(file_object.read) }
+      # File.open("public/#{file_name.toutf8}", 'wb') { |f| f.write(file_object.read) }
+      File.open("public/#{file_name}", 'wb') { |f| f.write(file_object.read) }
       result = 'success'
     end
     result
 end
 
   def deletexlsx(file_name)
-    File.unlink 'public/' + file_name.toutf8
+    # File.unlink 'public/' + file_name.toutf8
+    File.unlink 'public/' + file_name
 end
 end
