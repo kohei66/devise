@@ -64,3 +64,5 @@ gem 'rails_admin', '~> 1.3'
 gem 'cancancan', '~> 2.0'
 gem 'rubyXL'
 gem 'roo'
+
+gem 'rails_12factor', group: :production
