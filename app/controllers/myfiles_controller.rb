@@ -1,5 +1,3 @@
-require 'Kconv'
-
 class MyfilesController < ApplicationController
   before_action :set_myfile, only: %i[show edit update destroy]
 
