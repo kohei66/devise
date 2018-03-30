@@ -6,52 +6,39 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script type='text/javascript' src="https://www.gstatic.com/charts/loader.js"></script>
-    <div id="regions_div" style="width: 900px; height: 300px;"></div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {
+      'packages':['geochart'],
+      // Note: you will need to get a mapsApiKey for your project.
+      // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+      'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
 
-    <script type="text/javascript">
-      google.charts.load('current', {
-        'packages': ['geochart'],
-        // Note: you will need to get a mapsApiKey for your project. See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
+    function drawRegionsMap() {
+      var data = google.visualization.arrayToDataTable([
+        ['Country', 'Number of operating machine'],
+        ['Germany', 200],
+        ['United States', 300],
+        ['Brazil', 400],
+        ['Canada', 500],
+        ['France', 600],
+        ['RU', 700]
+      ]);
 
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          [
-            'Country', 'Popularity'
-          ],
-          // [
-          //   'South America', 600
-          // ],
-          // [
-          //   'Canada', 500
-          // ],
-          // [
-          //   'France', 600
-          // ],
-          // [
-          //   'Russia', 700
-          // ],
-          // [
-          //   'Australia', 600
-          // ]
-        ]);
+      var options = {};
 
-        var options = {
-          displayMode: 'text'
-        };
+      var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-        chart.draw(data, options);
-      }
-    </script>
+      chart.draw(data, options);
+    }
+  </script>
 
   </head>
 
   <body>
+     <div id="regions_div" style="width: 900px; height: 300px;"></div>
     <div class="d-flex fixed-top flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
       <h5 class="my-0 mr-md-auto font-weight-normal">K Distributor DataBase</h5>
       <nav class="my-2 my-md-0 mr-md-3">
