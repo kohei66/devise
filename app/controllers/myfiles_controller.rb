@@ -85,7 +85,6 @@ class MyfilesController < ApplicationController
       h = Hash[*header_row_pairs.flatten]
       h.delete(:id)
       Blog.create(h)
-      binding.pry
       end
 
     redirect_to blogs_path, notice: "一括アップロード実施いたしました"
