@@ -57,9 +57,14 @@
                   <td class="text-secondary"><%= blog.status %></td>
               <% end %>
             <td><%= link_to '詳細', blog, class:"text-primary" %></td>
-              <% if blog.status == "承認待ち" &&  current_user.id == blog.user_id %>
-                  <td><%= link_to '編集', edit_blog_path(blog), class:"text-primary" %></td>
-                  <td><%= link_to '削除', blog, method: :delete, data: { confirm: '本当に削除いたしますか?' }, class:"text-primary" %></td>
+              <% if current_user %>
+                <% if blog.status == "承認待ち" &&  current_user.id == blog.user_id %>
+                    <td><%= link_to '編集', edit_blog_path(blog), class:"text-primary" %></td>
+                    <td><%= link_to '削除', blog, method: :delete, data: { confirm: '本当に削除いたしますか?' }, class:"text-primary" %></td>
+                <% else %>
+                  <td><%= link_to '--', class:"text-muted" %></td>
+                  <td><%= link_to '--', class:"text-muted" %></td>
+                <% end %>
               <% else %>
                 <td><%= link_to '--', class:"text-muted" %></td>
                 <td><%= link_to '--', class:"text-muted" %></td>
