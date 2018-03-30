@@ -1,6 +1,6 @@
 class MyfilesController < ApplicationController
   before_action :set_myfile, only: %i[show edit update destroy]
-
+  before_action :authenticate_user!
   # GET /myfiles
   # GET /myfiles.json
   def index
